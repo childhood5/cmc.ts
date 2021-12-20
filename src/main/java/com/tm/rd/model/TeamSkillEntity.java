@@ -9,24 +9,25 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "task")
-public class TaskEntity {
+@Table(name = "team_skill")
+public class TeamSkillEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="task_id")
-	private String taskId;
+	@Column(name="team_id")
+	private String teamId;
 	
 	private String skill;
 
-	public String getTaskId() {
-		return taskId;
+	
+	public String getTeamId() {
+		return teamId;
 	}
 
-	public void setTaskId(String taskId) {
-		this.taskId = taskId;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 
 	public String getSkill() {

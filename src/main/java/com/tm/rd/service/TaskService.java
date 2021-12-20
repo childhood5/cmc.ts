@@ -1,5 +1,7 @@
 package com.tm.rd.service;
 
+import com.tm.rd.model.TaskEntity;
+
 /**
  * Define TaskService
  * 
@@ -7,5 +9,5 @@ package com.tm.rd.service;
  */
 public interface TaskService {
 	
-
+	public void insert(TaskEntity entity);
 }
