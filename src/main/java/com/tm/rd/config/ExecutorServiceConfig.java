@@ -8,20 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
-public class DaemonThread {
+public class ExecutorServiceConfig {
 	
 	private Callable<?> callable;
 	
 	@Autowired
-	public DaemonThread(Callable<?> callable) {
+	public ExecutorServiceConfig(Callable<?> callable) {
 		this.callable = callable;
 	}
 	
 	@Bean
 	public void executorService() {
 		ExecutorService executor = Executors.newFixedThreadPool(3);
-	    executor.submit(callable);
+		executor.submit(callable);
 	}
 }

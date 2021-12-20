@@ -1,5 +1,9 @@
 package com.tm.rd.service;
 
+import static com.tm.rd.constants.Constant.CURRENT_FOLDER;
+import static com.tm.rd.util.CSVFileUtil.deleteCSVFile;
+import static com.tm.rd.util.CSVFileUtil.readCSVFile;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,7 +23,6 @@ import com.tm.rd.model.TeamSkillEntity;
 import com.tm.rd.repository.TaskRepository;
 import com.tm.rd.repository.TeamRepository;
 import com.tm.rd.repository.TeamSkillRepository;
-import com.tm.rd.util.ReadCSVUtil;
 
 /**
  * Here is a CallableServiceImpl
@@ -28,7 +31,7 @@ import com.tm.rd.util.ReadCSVUtil;
  *
  */
 @Service
-public class CallableServiceImpl implements Callable<Void> {
+public class ExecutorServiceImpl implements Callable<Void> {
 
 	private TaskRepository taskRepository;
 
@@ -37,7 +40,7 @@ public class CallableServiceImpl implements Callable<Void> {
 	private TeamSkillRepository teamSkillRepository;
 
 	@Autowired
-	public CallableServiceImpl(TaskRepository taskRepository, TeamRepository teamRepository,
+	public ExecutorServiceImpl(TaskRepository taskRepository, TeamRepository teamRepository,
 			TeamSkillRepository teamSkillRepository) {
 		this.taskRepository = taskRepository;
 		this.teamRepository = teamRepository;
@@ -54,21 +57,20 @@ public class CallableServiceImpl implements Callable<Void> {
 	private void watchFolder() {
 		try {
 			WatchService watchService = FileSystems.getDefault().newWatchService();
-			Path directory = Paths.get(System.getProperty("user.dir"));
+			Path directory = Paths.get(System.getProperty(CURRENT_FOLDER));
 			WatchKey watchKey = directory.register(watchService,
 					StandardWatchEventKinds.ENTRY_CREATE,
 					StandardWatchEventKinds.ENTRY_MODIFY,
 					StandardWatchEventKinds.ENTRY_DELETE);
-
+			
 			while (true) {
 				for (WatchEvent<?> event : watchKey.pollEvents()) {
-					WatchEvent<Path> pathEvent = (WatchEvent<Path>) event;
-					Path fileName = pathEvent.context();
-					fileName.getFileSystem().getRootDirectories();
-					WatchEvent.Kind<?> kind = event.kind();
+					final WatchEvent<Path> pathEvent = (WatchEvent<Path>) event;
+					final Path fileName = pathEvent.context();
+					final WatchEvent.Kind<?> kind = event.kind();
 					if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-						List<?> records = ReadCSVUtil.readCSVFile(Paths.get(fileName.toString()).toAbsolutePath()
-										.toString(), fileName.toString());
+						final String pathFile = Paths.get(fileName.toString()).toAbsolutePath().toString();
+						final List<?> records = readCSVFile(pathFile, fileName.toString());
 						for (Object entity : records) {
 							if (entity instanceof TaskEntity) {
 								taskRepository.save((TaskEntity) entity);
@@ -78,10 +80,12 @@ public class CallableServiceImpl implements Callable<Void> {
 								teamSkillRepository.save((TeamSkillEntity) entity);
 							}
 						}
+						System.out.println("Thread: " + Thread.currentThread().getName());
+						Thread.sleep(1000);
+						deleteCSVFile(pathFile);
 					}
 				}
-				boolean valid = watchKey.reset();
-				if (!valid) {
+				if (!watchKey.reset()) {
 					break;
 				}
 			}

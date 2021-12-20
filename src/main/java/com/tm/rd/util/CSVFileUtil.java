@@ -1,14 +1,17 @@
 package com.tm.rd.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.tm.rd.constants.Constant.TASK_CSV;
 import static com.tm.rd.constants.Constant.TEAM_CSV;
 import static com.tm.rd.constants.Constant.TEAM_SKILL_CSV;
+
 import com.tm.rd.model.TaskEntity;
 import com.tm.rd.model.TeamEntity;
 import com.tm.rd.model.TeamSkillEntity;
@@ -19,7 +22,7 @@ import com.tm.rd.model.TeamSkillEntity;
  * 
  *
  */
-public final class ReadCSVUtil {
+public final class CSVFileUtil {
 
 	public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
 		
@@ -46,6 +49,13 @@ public final class ReadCSVUtil {
 		    }
 		}
 		return records;
+	}
+	
+	public static void deleteCSVFile(final String pathFile) {
+		final File file= new File(pathFile);
+		if(file.exists()) {
+			file.delete();
+		}
 	}
 
 }
