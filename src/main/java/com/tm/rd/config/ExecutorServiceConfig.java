@@ -11,16 +11,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ExecutorServiceConfig {
 	
-	private Callable<?> callable;
+	private Callable<?> executorService;
 	
 	@Autowired
-	public ExecutorServiceConfig(Callable<?> callable) {
-		this.callable = callable;
+	public ExecutorServiceConfig(Callable<?> executorService) {
+		this.executorService = executorService;
 	}
 	
 	@Bean
 	public void executorService() {
-		ExecutorService executor = Executors.newFixedThreadPool(3);
-		executor.submit(callable);
+		ExecutorService executor = Executors.newCachedThreadPool();
+		executor.submit(executorService);
 	}
 }

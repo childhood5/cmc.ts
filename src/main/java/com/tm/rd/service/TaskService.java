@@ -10,4 +10,5 @@ import com.tm.rd.model.TaskEntity;
 public interface TaskService {
 	
 	public void insert(TaskEntity entity);
+	
 }

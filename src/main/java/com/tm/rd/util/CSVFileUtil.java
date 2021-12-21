@@ -33,17 +33,17 @@ public final class CSVFileUtil {
 		        String[] values = line.split(",");
 		        if(TASK_CSV.equals(fileName)) {
 		        	TaskEntity entity = new TaskEntity();
-			        entity.setTaskId(values[0]);
-			        entity.setSkill(values[1]);
+			        entity.setTaskId(replaceString(values[0]));
+			        entity.setSkill(replaceString(values[1]));
 			        records.add(entity);
 		        } else if(TEAM_CSV.equals(fileName)) {
 		        	TeamEntity entity = new TeamEntity();
-			        entity.setTeamId(values[0]);
+			        entity.setTeamId(replaceString(values[0]));
 			        records.add(entity);
 		        } else if(TEAM_SKILL_CSV.equals(fileName)) {
 		        	TeamSkillEntity entity = new TeamSkillEntity();
-			        entity.setTeamId(values[0]);
-			        entity.setSkill(values[1]);
+			        entity.setTeamId(replaceString(values[0]));
+			        entity.setSkill(replaceString(values[1]));
 			        records.add(entity);
 		        }
 		    }
@@ -56,6 +56,10 @@ public final class CSVFileUtil {
 		if(file.exists()) {
 			file.delete();
 		}
+	}
+	
+	public static String replaceString(final String data) {
+		return data.replace("\"", "");
 	}
 
 }

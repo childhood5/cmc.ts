@@ -1,9 +1,11 @@
 package com.tm.rd.util;
 
 import java.util.List;
-import com.tm.rd.exception.InvalidIdException;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+
+import com.tm.rd.exception.InvalidTaskIdException;
 
 /**
  * Validation class
@@ -27,8 +29,8 @@ public final class ValidatorUtil {
 			errors.forEach(error -> {
 				String fieldName = error.getField();
 				switch (fieldName) {
-					case "Id":
-						throw new InvalidIdException();
+					case "taskId":
+						throw new InvalidTaskIdException();
 					default:
 						break;
 				}

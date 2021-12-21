@@ -49,12 +49,12 @@ public class ExecutorServiceImpl implements Callable<Void> {
 	}
 
 	@Override
-	public Void call() throws Exception {
+	public synchronized Void call() throws Exception {
 		watchFolder();
 		return null;
 	}
 
-	private void watchFolder() {
+	private synchronized void watchFolder() {
 		try {
 			WatchService watchService = FileSystems.getDefault().newWatchService();
 			Path directory = Paths.get(System.getProperty(CURRENT_FOLDER));
@@ -80,7 +80,6 @@ public class ExecutorServiceImpl implements Callable<Void> {
 								teamSkillRepository.save((TeamSkillEntity) entity);
 							}
 						}
-						System.out.println("Thread: " + Thread.currentThread().getName());
 						Thread.sleep(1000);
 						deleteCSVFile(pathFile);
 					}

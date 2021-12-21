@@ -11,5 +11,4 @@ import com.tm.rd.model.TaskEntity;
  */
 public interface TaskRepository extends CrudRepository<TaskEntity, Long> {
 
-	
 }
