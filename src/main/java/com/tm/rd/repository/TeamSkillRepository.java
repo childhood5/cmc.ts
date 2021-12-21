@@ -1,5 +1,7 @@
 package com.tm.rd.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.tm.rd.model.TeamSkillEntity;
@@ -11,5 +13,5 @@ import com.tm.rd.model.TeamSkillEntity;
  */
 public interface TeamSkillRepository extends CrudRepository<TeamSkillEntity, Long> {
 
-	
+	List<TeamSkillEntity> findAll();
 }

@@ -13,6 +13,6 @@ public class RegexConstant {
 	private RegexConstant() {
 	}
 
-	// Device id pattern
+	// Task id pattern
 	public static final String TASK_ID_PATTERN = "[a-zA-Z]+(_)[0-9]+";
 }

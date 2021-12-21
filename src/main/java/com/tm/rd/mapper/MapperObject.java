@@ -1,7 +1,7 @@
 package com.tm.rd.mapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tm.rd.dto.RequestDto;
-import com.tm.rd.model.AssignmentResultEntity;
 
 
 /**
@@ -12,17 +12,8 @@ import com.tm.rd.model.AssignmentResultEntity;
  */
 public class MapperObject {
 
-	public AssignmentResultEntity mapperDtoToEntity(RequestDto dto) {
-		AssignmentResultEntity entity = new AssignmentResultEntity();
-		entity.setTaskId(dto.getTaskId());
-		return entity;
-	}
-
-	public RequestDto mapperEntityToDto(AssignmentResultEntity entity) {
-		RequestDto dto = new RequestDto();
-		dto.setTaskId(entity.getTaskId());
-		dto.setSkill(entity.getSkill());
-		dto.setTeamId(entity.getTeamId());
-		return dto;
+	public RequestDto mapperEntityToDto(Object entity) {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.convertValue(entity, RequestDto.class);
 	}
 }

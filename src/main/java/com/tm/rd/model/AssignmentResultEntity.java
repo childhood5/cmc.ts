@@ -2,8 +2,6 @@ package com.tm.rd.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,18 +11,24 @@ import javax.persistence.Table;
 public class AssignmentResultEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="task_id")
-	private String taskId;
-	
-	private String skill;
 	
 	@Column(name="team_id")
 	private String teamId;
-
 	
+	private String skill;
+	
+	@Column(name="task_id")
+	private String taskId;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getTaskId() {
 		return taskId;
 	}

@@ -13,6 +13,8 @@ import static com.tm.rd.constants.RegexConstant.TASK_ID_PATTERN;
  */
 public class RequestDto {
 
+	private Long id;
+	
 	@Pattern(regexp = TASK_ID_PATTERN)
 	@NotEmpty
 	private String taskId;
@@ -20,6 +22,14 @@ public class RequestDto {
 	private String skill;
 	
 	private String teamId;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTaskId() {
 		return taskId;

@@ -8,34 +8,29 @@ import org.springframework.stereotype.Service;
 
 import com.tm.rd.dto.RequestDto;
 import com.tm.rd.mapper.MapperObject;
-import com.tm.rd.model.TaskEntity;
-import com.tm.rd.repository.TaskRepository;
+import com.tm.rd.model.TeamSkillEntity;
+import com.tm.rd.repository.TeamSkillRepository;
 
 /**
- * Here is a TaskServiceImpl class
+ * Here is a TeamSkillServiceImpl class
  * 
  * @author tong
  */
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TeamSkillServiceImpl implements TeamSkillService {
 
-	private TaskRepository taskRepository;
+	private TeamSkillRepository repository;
 	
 	@Autowired
-	public TaskServiceImpl(TaskRepository taskRepository) {
-		this.taskRepository = taskRepository;
+	public TeamSkillServiceImpl(TeamSkillRepository repository) {
+		this.repository = repository;
 	}
 	
-	@Override
-	public void insert(TaskEntity entity) {
-		taskRepository.save(entity);
-	}
-
 	@Override
 	public List<RequestDto> findAll() {
 		List<RequestDto> dtoList = new ArrayList<>();
-		List<TaskEntity> result = taskRepository.findAll();
-		for(TaskEntity entity: result) {
+		List<TeamSkillEntity> result = repository.findAll();
+		for(TeamSkillEntity entity: result) {
 			dtoList.add(new MapperObject().mapperEntityToDto(entity));
 		}
 		return dtoList;

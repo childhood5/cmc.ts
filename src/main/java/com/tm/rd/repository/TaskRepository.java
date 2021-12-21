@@ -1,5 +1,7 @@
 package com.tm.rd.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.tm.rd.model.TaskEntity;
@@ -11,4 +13,5 @@ import com.tm.rd.model.TaskEntity;
  */
 public interface TaskRepository extends CrudRepository<TaskEntity, Long> {
 
+	List<TaskEntity> findAll();
 }
