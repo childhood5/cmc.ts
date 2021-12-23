@@ -24,8 +24,8 @@ import tm.task.model.TeamSkillEntity;
  */
 public final class CSVFileUtil {
 
-public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
-		
+	
+	public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
 		List<Object> records = new ArrayList<Object>();
 		String line = "";
 		FileReader input = null;
