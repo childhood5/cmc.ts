@@ -3,9 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>tm-parent</groupId>
-		<artifactId>tm-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.8</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
 	<artifactId>tm-data</artifactId>
@@ -17,11 +18,17 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<version>2.4.3</version>
+		    <groupId>org.powermock</groupId>
+		    <artifactId>powermock-api-mockito2</artifactId>
+		    <version>2.0.9</version>
+		    <scope>test</scope>
 		</dependency>
-
+		<dependency>
+		    <groupId>org.powermock</groupId>
+		    <artifactId>powermock-module-junit4</artifactId>
+		    <version>2.0.9</version>
+		    <scope>test</scope>
+		</dependency>
 		<dependency>
             <groupId>tm-parent</groupId>
             <artifactId>tm-task</artifactId>

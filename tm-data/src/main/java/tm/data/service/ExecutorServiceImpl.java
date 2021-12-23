@@ -70,6 +70,7 @@ public class ExecutorServiceImpl implements Callable<Void> {
 					final Path fileName = pathEvent.context();
 					final WatchEvent.Kind<?> kind = event.kind();
 					if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+						Thread.sleep(1000);
 						final String pathFile = Paths.get(fileName.toString())
 								.toAbsolutePath().toString();
 						final List<?> records = readCSVFile(pathFile,
@@ -83,7 +84,6 @@ public class ExecutorServiceImpl implements Callable<Void> {
 								teamSkillService.insert((TeamSkillEntity) entity);
 							}
 						}
-						Thread.sleep(1000);
 						deleteCSVFile(pathFile);
 					}
 				}

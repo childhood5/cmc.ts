@@ -16,7 +16,6 @@ import tm.task.model.TaskEntity;
 import tm.task.model.TeamEntity;
 import tm.task.model.TeamSkillEntity;
 
-
 /**
  * ReadCSVUtil class
  * 
@@ -24,53 +23,47 @@ import tm.task.model.TeamSkillEntity;
  */
 public final class CSVFileUtil {
 
-	
-	public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
-		List<Object> records = new ArrayList<Object>();
+	public static synchronized List<?> readCSVFile(final String pathFile,
+			final String fileName) throws FileNotFoundException, IOException {
+
+		List<Object> records = new ArrayList<>();
 		String line = "";
-		FileReader input = null;
-		BufferedReader  inputBuffer = null;
-		try {
-			input = new FileReader(pathFile);
-			inputBuffer = new BufferedReader(input);
-		    while ((line = inputBuffer.readLine()) != null) {
-		        String[] values = line.split(",");
-		        if(TASK_CSV.equals(fileName)) {
-		        	TaskEntity entity = new TaskEntity();
-			        entity.setTaskId(replaceString(values[0]));
-			        entity.setSkill(replaceString(values[1]));
-			        records.add(entity);
-		        } else if(TEAM_CSV.equals(fileName)) {
-		        	TeamEntity entity = new TeamEntity();
-			        entity.setTeamId(replaceString(values[0]));
-			        records.add(entity);
-		        } else if(TEAM_SKILL_CSV.equals(fileName)) {
-		        	TeamSkillEntity entity = new TeamSkillEntity();
-			        entity.setTeamId(replaceString(values[0]));
-			        entity.setSkill(replaceString(values[1]));
-			        records.add(entity);
-		        }
-		    }
-		} catch (Exception e) {
-			System.out.print(e);
-		} finally {
-			if (inputBuffer != null) {
-				inputBuffer.close();
-			}
-			if (input != null) {
-				input.close();
+		boolean flag = false;
+		try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+			while ((line = br.readLine()) != null) {
+				if (flag) {
+					String[] values = line.split(",");
+					if (TASK_CSV.equals(fileName)) {
+						TaskEntity entity = new TaskEntity();
+						entity.setTaskId(replaceString(values[0]));
+						entity.setSkill(replaceString(values[1]));
+						records.add(entity);
+					} else if (TEAM_CSV.equals(fileName)) {
+						TeamEntity entity = new TeamEntity();
+						entity.setTeamId(replaceString(values[0]));
+						records.add(entity);
+					} else if (TEAM_SKILL_CSV.equals(fileName)) {
+						TeamSkillEntity entity = new TeamSkillEntity();
+						entity.setTeamId(replaceString(values[0]));
+						entity.setSkill(replaceString(values[1]));
+						records.add(entity);
+					}
+				} else {
+					flag = true;
+				}
+
 			}
 		}
 		return records;
 	}
-	
+
 	public static void deleteCSVFile(final String pathFile) {
-		final File file= new File(pathFile);
-		if(file.exists()) {
+		final File file = new File(pathFile);
+		if (file.exists()) {
 			file.delete();
 		}
 	}
-	
+
 	public static String replaceString(final String data) {
 		return data.replace("\"", "");
 	}
