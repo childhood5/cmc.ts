@@ -24,12 +24,16 @@ import tm.task.model.TeamSkillEntity;
  */
 public final class CSVFileUtil {
 
-	public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
+public static synchronized List<?> readCSVFile(final String pathFile, final String fileName) throws FileNotFoundException, IOException {
 		
-		List<Object> records = new ArrayList<>();
+		List<Object> records = new ArrayList<Object>();
 		String line = "";
-		try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-		    while ((line = br.readLine()) != null) {
+		FileReader input = null;
+		BufferedReader  inputBuffer = null;
+		try {
+			input = new FileReader(pathFile);
+			inputBuffer = new BufferedReader(input);
+		    while ((line = inputBuffer.readLine()) != null) {
 		        String[] values = line.split(",");
 		        if(TASK_CSV.equals(fileName)) {
 		        	TaskEntity entity = new TaskEntity();
@@ -47,6 +51,15 @@ public final class CSVFileUtil {
 			        records.add(entity);
 		        }
 		    }
+		} catch (Exception e) {
+			System.out.print(e);
+		} finally {
+			if (inputBuffer != null) {
+				inputBuffer.close();
+			}
+			if (input != null) {
+				input.close();
+			}
 		}
 		return records;
 	}
