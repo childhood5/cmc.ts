@@ -23,12 +23,10 @@ public class TeamSkillServiceImpl implements TeamSkillService {
 		this.repository = repository;
 	}
 	
-	@Override
 	public List<TeamSkillEntity> findAll() {
 		return repository.findAll();
 	}
 
-	@Override
 	public void insert(TeamSkillEntity entity) {
 		repository.save(entity);
 	}

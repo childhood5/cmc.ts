@@ -23,12 +23,10 @@ public class TeamServiceImpl implements TeamService {
 		this.teamRepository = teamRepository;
 	}
 	
-	@Override
 	public List<TeamEntity> findAll() {
 		return teamRepository.findAll();
 	}
 
-	@Override
 	public void insert(TeamEntity entity) {
 		teamRepository.save(entity);
 	}

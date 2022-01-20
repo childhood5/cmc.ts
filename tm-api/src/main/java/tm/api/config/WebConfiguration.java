@@ -1,4 +1,4 @@
-package tm.api;
+package tm.api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

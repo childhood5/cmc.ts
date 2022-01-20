@@ -1,8 +1,9 @@
 package tm.api.dto;
 
+import static tm.api.constants.RegexConstant.TASK_ID_PATTERN;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import static tm.api.constants.RegexConstant.TASK_ID_PATTERN;
 
 
 /**

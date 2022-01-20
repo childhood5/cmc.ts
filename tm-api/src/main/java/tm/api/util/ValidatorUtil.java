@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import tm.api.exception.InvalidIdException;
 import tm.api.exception.InvalidTaskIdException;
 
 
@@ -30,6 +31,8 @@ public final class ValidatorUtil {
 			errors.forEach(error -> {
 				String fieldName = error.getField();
 				switch (fieldName) {
+					case "id":
+						throw new InvalidIdException();
 					case "taskId":
 						throw new InvalidTaskIdException();
 					default:

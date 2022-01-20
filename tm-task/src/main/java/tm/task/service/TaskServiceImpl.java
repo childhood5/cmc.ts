@@ -24,12 +24,10 @@ public class TaskServiceImpl implements TaskService {
 		this.taskRepository = taskRepository;
 	}
 	
-	@Override
 	public void insert(TaskEntity entity) {
 		taskRepository.save(entity);
 	}
 
-	@Override
 	public List<TaskEntity> findAll() {
 		return taskRepository.findAll();
 	}

@@ -23,7 +23,6 @@ public class AssignmentResultServiceImpl implements AssignmentResultService {
 		this.assignmentResultRepository = assignmentResultRepository;
 	}
 
-	@Override
 	public List<AssignmentResultEntity> getResults(final String taskId) {
 		return assignmentResultRepository.getResults(taskId);
 	}

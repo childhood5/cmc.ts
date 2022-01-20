@@ -7,7 +7,8 @@ package tm.api.constants;
  */
 public enum ErrorEnum {
 
-	INVALID_TASK_ID("400", "Invalid taskId");
+	INVALID_TASK_ID("400", "Invalid taskId"),
+	INVALID_ID("401", "Invalid Id");
 
 	private String code;
 	
